@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
   fout_csr.close();
   fout_rhs.close();
 
-  // refill rhs with the same values it already stores but with better precision (comment it to see the effect)
+  // refill rhs with the same values it already stores but with better precision (commenting this would make it work)
   for (int i=0; i<10; i++) {
 	rhs->at(i) = -std::cos(((double)i/5-1)*3.141592653589793238462643383279502884197);
   }
