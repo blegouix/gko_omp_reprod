@@ -64,5 +64,5 @@ int main(int argc, char* argv[])
     rhs->compute_norm2(residual_norm);
     std::cout << "----- residual_norm -----\n";
     gko::write(std::cout, residual_norm);
-    return 1;
+    return 0;
 }
