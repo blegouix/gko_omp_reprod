@@ -36,9 +36,12 @@ int main(int argc, char* argv[])
     std::shared_ptr const iterations_criterion
             = gko::stop::Iteration::build().with_max_iters(1000u).on(gko_exec);
 
+    std::shared_ptr const convergence_logger = gko::log::Convergence<double>::create();
+
     std::unique_ptr const solver_factory
             = gko::solver::Bicgstab<double>::build()
                       .with_criteria(residual_criterion, iterations_criterion)
+                      .with_loggers(convergence_logger)
                       .on(gko_exec);
     // .on(gko::ReferenceExecutor::
     //             create()); // uncomment this to see using serial executor works
@@ -49,6 +52,8 @@ int main(int argc, char* argv[])
     std::shared_ptr const result = gko::initialize<
             gko::matrix::Dense<double>>({0., 0., 0., 0., 0., 0., 0., 0., 0., 0.}, gko_exec);
     solver->apply(rhs, result);
+
+    std::cout << "solver iteration count: " << convergence_logger->get_num_iterations() << "\n";
 
     // compute residual
     std::shared_ptr const one = gko::initialize<gko::matrix::Dense<double>>({1.}, gko_exec);
