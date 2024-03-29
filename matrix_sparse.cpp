@@ -61,6 +61,9 @@ int main(int argc, char* argv[])
     std::shared_ptr const residual = gko::initialize<
             gko::matrix::Dense<double>>({0., 0., 0., 0., 0., 0., 0., 0., 0., 0.}, gko_exec);
     csr->apply(one, result, neg_one, rhs);
+    std::cout << "----- solution -----\n";
+    gko::write(std::cout, result);
+
     std::cout << "----- residual -----\n";
     gko::write(std::cout, rhs);
 
