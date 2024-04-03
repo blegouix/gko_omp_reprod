@@ -24,6 +24,10 @@ int main(int argc, char* argv[])
                 (static_cast<double>(i) / 5 - 1) * 3.141592653589793238462643383279502884197);
     }
 
+    // export to binary matrix
+    std::ofstream fout_rhs_binary("rhs_binary");
+    gko::write_binary(fout_rhs_binary, rhs);
+
     std::cout << "----- rhs -----\n";
     gko::write(std::cout, rhs);
 
